@@ -103,7 +103,6 @@ package starling.display
         }
         
         // child management
-		//test
         
         /** Adds a child to the container. It will be at the frontmost position. */
         public function addChild(child:DisplayObject):DisplayObject
