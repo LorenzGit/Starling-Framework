@@ -217,7 +217,7 @@ package starling.core
         private var mNativeStageContentScaleFactor:Number;
 
         private static var sCurrent:Starling;
-        private static var sHandleLostContext:Boolean;
+        private static var sHandleLostContext:Boolean = true;
         private static var sContextData:Dictionary = new Dictionary(true);
         private static var sAll:Vector.<Starling> = new <Starling>[];
         
@@ -360,7 +360,7 @@ package starling.core
             var currentProfile:String;
             
             if (profile == "auto")
-                profiles = ["standard", "baselineExtended", "baseline", "baselineConstrained"];
+                profiles = ["standard", "standardConstrained", "baselineExtended", "baseline", "baselineConstrained"];
             else if (profile is String)
                 profiles = [profile as String];
             else if (profile is Array)
