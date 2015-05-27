@@ -10,17 +10,10 @@
 
 package starling.geom
 {
-<<<<<<< HEAD
     import avmplus.getQualifiedClassName;
 
     import flash.geom.Point;
 
-=======
-    import flash.geom.Point;
-    import flash.utils.getQualifiedClassName;
-
-    import starling.utils.VectorUtil;
->>>>>>> Gamua/master
     import starling.utils.VertexData;
 
     /** A polygon describes a closed two-dimensional shape bounded by a number of straight
@@ -35,12 +28,6 @@ package starling.geom
     {
         private var mCoords:Vector.<Number>;
 
-<<<<<<< HEAD
-=======
-        // Helper object
-        private static var sRestIndices:Vector.<uint> = new <uint>[];
-
->>>>>>> Gamua/master
         /** Creates a Polygon with the given coordinates.
          *  @param vertices an array that contains either 'Point' instances or
          *                  alternating 'x' and 'y' coordinates.
@@ -178,7 +165,6 @@ package starling.geom
             if (result == null) result = new <uint>[];
 
             var numVertices:int = this.numVertices;
-<<<<<<< HEAD
             var i:int, restIndexPos:int, numRestIndices:int;
 
             if (numVertices < 3) return result;
@@ -189,17 +175,6 @@ package starling.geom
                 restIndices[i] = i;
 
             restIndexPos = 0;
-=======
-            var i:int, restIndexPos:int, numRestIndices:int, resultPos:int;
-
-            if (numVertices < 3) return result;
-
-            sRestIndices.length = numVertices;
-            for (i=0; i<numVertices; ++i) sRestIndices[i] = i;
-
-            restIndexPos = 0;
-            resultPos = result.length;
->>>>>>> Gamua/master
             numRestIndices = numVertices;
 
             while (numRestIndices > 3)
@@ -209,15 +184,9 @@ package starling.geom
                 // We remove those ears until only one remains -> each ear is one of our wanted
                 // triangles.
 
-<<<<<<< HEAD
                 var i0:int = restIndices[ restIndexPos      % numRestIndices];
                 var i1:int = restIndices[(restIndexPos + 1) % numRestIndices];
                 var i2:int = restIndices[(restIndexPos + 2) % numRestIndices];
-=======
-                var i0:uint = sRestIndices[ restIndexPos      % numRestIndices];
-                var i1:uint = sRestIndices[(restIndexPos + 1) % numRestIndices];
-                var i2:uint = sRestIndices[(restIndexPos + 2) % numRestIndices];
->>>>>>> Gamua/master
 
                 var ax:Number = mCoords[2 * i0];
                 var ay:Number = mCoords[2 * i0 + 1];
@@ -232,11 +201,7 @@ package starling.geom
                     earFound = true;
                     for (i = 3; i < numRestIndices; ++i)
                     {
-<<<<<<< HEAD
                         var otherIndex:int = restIndices[(restIndexPos + i) % numRestIndices];
-=======
-                        var otherIndex:uint = sRestIndices[(restIndexPos + i) % numRestIndices];
->>>>>>> Gamua/master
                         if (isPointInTriangle(mCoords[2 * otherIndex], mCoords[2 * otherIndex + 1],
                                 ax, ay, bx, by, cx, cy))
                         {
@@ -248,16 +213,8 @@ package starling.geom
 
                 if (earFound)
                 {
-<<<<<<< HEAD
                     result.push(i0, i1, i2);
                     restIndices.splice((restIndexPos + 1) % numRestIndices, 1);
-=======
-                    result[resultPos++] = i0; // -> result.push(i0, i1, i2);
-                    result[resultPos++] = i1;
-                    result[resultPos++] = i2;
-                    VectorUtil.removeUnsignedIntAt(sRestIndices, (restIndexPos + 1) % numRestIndices);
-
->>>>>>> Gamua/master
                     numRestIndices--;
                     restIndexPos = 0;
                 }
@@ -268,14 +225,7 @@ package starling.geom
                 }
             }
 
-<<<<<<< HEAD
             result.push(restIndices[0], restIndices[1], restIndices[2]);
-=======
-            result[resultPos++] = sRestIndices[0]; // -> result.push(...);
-            result[resultPos++] = sRestIndices[1];
-            result[resultPos  ] = sRestIndices[2];
-
->>>>>>> Gamua/master
             return result;
         }
 
@@ -315,15 +265,9 @@ package starling.geom
             for (var i:int=0; i<numPoints; ++i)
             {
                 result += "  [Vertex " + i + ": " +
-<<<<<<< HEAD
                 "x="   + mCoords[i * 2    ].toFixed(1) + ", " +
                 "y="   + mCoords[i * 2 + 1].toFixed(1) + "]"  +
                 (i == numPoints - 1 ? "\n" : ",\n");
-=======
-                    "x=" + mCoords[i * 2    ].toFixed(1) + ", " +
-                    "y=" + mCoords[i * 2 + 1].toFixed(1) + "]"  +
-                    (i == numPoints - 1 ? "\n" : ",\n");
->>>>>>> Gamua/master
             }
 
             return result + "]";
@@ -510,14 +454,9 @@ package starling.geom
     }
 }
 
-<<<<<<< HEAD
 import avmplus.getQualifiedClassName;
 
 import flash.errors.IllegalOperationError;
-=======
-import flash.errors.IllegalOperationError;
-import flash.utils.getQualifiedClassName;
->>>>>>> Gamua/master
 
 import starling.geom.Polygon;
 
@@ -605,20 +544,9 @@ class Ellipse extends ImmutablePolygon
 
         var from:uint = 1;
         var to:uint = numVertices - 1;
-<<<<<<< HEAD
 
         for (var i:int=from; i<to; ++i)
             result.push(0, i, i+1);
-=======
-        var pos:uint = result.length;
-
-        for (var i:int=from; i<to; ++i)
-        {
-            result[pos++] = 0;
-            result[pos++] = i;
-            result[pos++] = i + 1;
-        }
->>>>>>> Gamua/master
 
         return result;
     }

@@ -56,10 +56,6 @@ package starling.display
         
         private var mScaleWhenDown:Number;
         private var mScaleWhenOver:Number;
-<<<<<<< HEAD
-=======
-        private var mAlphaWhenDown:Number;
->>>>>>> Gamua/master
         private var mAlphaWhenDisabled:Number;
         private var mUseHandCursor:Boolean;
         private var mEnabled:Boolean;
@@ -82,11 +78,7 @@ package starling.display
             mState = ButtonState.UP;
             mBody = new Image(upState);
             mScaleWhenDown = downState ? 1.0 : 0.9;
-<<<<<<< HEAD
             mScaleWhenOver = 1.0;
-=======
-            mScaleWhenOver = mAlphaWhenDown = 1.0;
->>>>>>> Gamua/master
             mAlphaWhenDisabled = disabledState ? 1.0: 0.5;
             mEnabled = true;
             mUseHandCursor = true;
@@ -186,7 +178,7 @@ package starling.display
             else if (touch.phase == TouchPhase.ENDED && mState == ButtonState.DOWN)
             {
                 state = ButtonState.UP;
-                if (!touch.cancelled) dispatchEventWith(Event.TRIGGERED, true);
+                dispatchEventWith(Event.TRIGGERED, true);
             }
         }
         
@@ -196,23 +188,19 @@ package starling.display
         public function set state(value:String):void
         {
             mState = value;
-            mContents.x = mContents.y = 0;
-            mContents.scaleX = mContents.scaleY = mContents.alpha = 1.0;
+            mContents.scaleX = mContents.scaleY = 1.0;
 
             switch (mState)
             {
                 case ButtonState.DOWN:
                     setStateTexture(mDownState);
-<<<<<<< HEAD
-=======
-                    mContents.alpha = mAlphaWhenDown;
->>>>>>> Gamua/master
                     mContents.scaleX = mContents.scaleY = mScaleWhenDown;
                     mContents.x = (1.0 - mScaleWhenDown) / 2.0 * mBody.width;
                     mContents.y = (1.0 - mScaleWhenDown) / 2.0 * mBody.height;
                     break;
                 case ButtonState.UP:
                     setStateTexture(mUpState);
+                    mContents.x = mContents.y = 0;
                     break;
                 case ButtonState.OVER:
                     setStateTexture(mOverState);
@@ -222,7 +210,7 @@ package starling.display
                     break;
                 case ButtonState.DISABLED:
                     setStateTexture(mDisabledState);
-                    mContents.alpha = mAlphaWhenDisabled;
+                    mContents.x = mContents.y = 0;
                     break;
                 default:
                     throw new ArgumentError("Invalid button state: " + mState);
@@ -244,13 +232,6 @@ package starling.display
         public function get scaleWhenOver():Number { return mScaleWhenOver; }
         public function set scaleWhenOver(value:Number):void { mScaleWhenOver = value; }
 
-<<<<<<< HEAD
-=======
-        /** The alpha value of the button on touch. @default 1.0 */
-        public function get alphaWhenDown():Number { return mAlphaWhenDown; }
-        public function set alphaWhenDown(value:Number):void { mAlphaWhenDown = value; }
-
->>>>>>> Gamua/master
         /** The alpha value of the button when it is disabled. @default 0.5 */
         public function get alphaWhenDisabled():Number { return mAlphaWhenDisabled; }
         public function set alphaWhenDisabled(value:Number):void { mAlphaWhenDisabled = value; }
@@ -262,6 +243,7 @@ package starling.display
             if (mEnabled != value)
             {
                 mEnabled = value;
+                mContents.alpha = value ? 1.0 : mAlphaWhenDisabled;
                 state = value ? ButtonState.UP : ButtonState.DISABLED;
             }
         }
